@@ -202,7 +202,7 @@ class Context: Hashable {
     
     func addObserver(for name: Notification.Name,
                      calling send: @escaping (Notification) -> Void,
-                     observingWithView view: UIView) {
+                     ifInWindow view: UIView) {
         
         let isObserving = { [weak view] in view?.window != nil }
         addObserver(for: name, calling: send, if: isObserving, expiresWith: view)
@@ -210,9 +210,9 @@ class Context: Hashable {
     
     func addObserver(for names: Set<Notification.Name>,
                      calling send: @escaping (Notification) -> Void,
-                     observingWithView view: UIView) {
+                     ifInWindow view: UIView) {
         
-        names.forEach { addObserver(for: $0, calling: send, observingWithView: view) }
+        names.forEach { addObserver(for: $0, calling: send, ifInWindow: view) }
     }
     
     func post(name: Notification.Name, object: Any?) {
