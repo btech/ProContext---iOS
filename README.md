@@ -195,7 +195,41 @@ And then check if a `Flag` is set using:
 context.flagIsSet(.userUsedTheTotalField)
 ```
 
+<br /><br /><br />
+## Adding Executables
 
+Part of the reason for creating ProContext was to take a step towards decoupling code from the files it's written in. If you think about any application of logic, mentally, there's no file structure. There are things, and these things are grouped together based on what works with what, and these groupings define contexts. It is only when we take this system, and begin implementing it as software that we must represent those things in files, and this confines us as to what code can be used where.
+
+`Executables` are a step away from that and towards are more homogenous code base. By adding `Executables`, functionality is linked with a `Context` and able to be executed anywhere within that context. For example, sometimes it's difficult to find the most applicable place to write a function. Perhaps it makes the most sense to write it in one object, but doing so there requires a lot of second-hand references (passing shit around), but writing it in the place that produces the least amount of second-hand references doesn't make sense either because although the function works mostly with the data in that object, the object itself would never call that function. So now you're adding a function (a behavior) to an object, when the function is not really a behavior of the object.
+
+This is not fair to the programmer, and certainly not to the object. Let's fix that. So if a function only makes sense within a given context, but is difficult to determine the most sensible place to put it, let's just put it in the `Context` itself!
+
+```swift
+class AssignmentWeightsContext: Context {
+
+    init() {
+        super.init()
+
+        addExecutable(.swapWeightInputViews,
+                      executing: { [unowned self] in self.swapWeightInputViews() },
+                      expiresWith: self
+        )
+    }
+
+    func swapWeightInputViews() { ... }
+}
+
+extension Executable.Name {
+
+    static let swapWeightInputViews = Executable.Name("swap-weight-input-views")
+}
+```
+
+Now whenever we want to execute the executable we just do:
+
+```swift
+context.execute(.swapWeightInputViews)
+```
 
 
 
