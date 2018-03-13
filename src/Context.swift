@@ -303,11 +303,13 @@ class Context: Hashable {
         addExecutable(name, executing: execute, if: isExecutable, expiresIf: isExpired)
     }
     
-    func addExecutable(_ name: Executable.Name, executing execute: @escaping () -> Void, withView view: UIView) {
+    func addExecutable(_ name: Executable.Name, 
+                       executing execute: @escaping () -> Void, 
+                       ifInWindow view: UIView) {
         
         // Add a executable that executes only as long as the view is in the window
-        let isExecutable = { [weak view] in view?.window != nil }
-        addExecutable(name, executing: execute, executableWhen: isExecutable, expiresWith: view)
+        let isExecutable = { [unowned view] in view.window != nil }
+        addExecutable(name, executing: execute, if: isExecutable, expiresWith: view)
     }
     
     func crashOrRemoveExecutable(_ name: Executable.Name) {
