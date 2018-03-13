@@ -295,7 +295,7 @@ class Context: Hashable {
 
     func addExecutable(_ name: Executable.Name,
                        executing execute: @escaping () -> Void,
-                       if isExecutable: @escaping () -> Bool, 
+                       if isExecutable: @escaping () -> Bool = { true }, 
                        expiresWith object: AnyObject) {
 
         // Expire executable when the provided object is deallocated
