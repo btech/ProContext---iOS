@@ -347,38 +347,6 @@ class Context: Hashable {
         fatalError("An executable named \(name.rawValue) has not been added")
     }
     
-    private func selfOrSuper(thatUses name: Notification.Name) -> Context? {
-        
-        if Context.global.nameIsInUse(name) {
-            
-            return self
-            
-        } else {
-            
-            return supercontext?.selfOrSuper(thatUses: name)
-        }
-    }
-    
-    private func selfOrSub(thatUses name: Notification.Name) -> Context? {
-        
-        if Context.global.nameIsInUse(name) {
-            
-            return self
-            
-        } else {
-            
-            for subcontext in subcontexts {
-                
-                if let context = subcontext.value!.selfOrSub(thatUses: name) {
-                    
-                    return context
-                }
-            }
-        }
-        
-        return nil
-    }
-    
     static func ==(lhs: Context, rhs: Context) -> Bool {
         
         return lhs === rhs
