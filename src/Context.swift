@@ -281,7 +281,10 @@ class Context: Hashable {
         return (supercontextTree + [self]).reduce(false){ return $1.flags.contains{ $0.name == name } ? true : $0 }
     }
     
-    private func addExecutable(_ name: Executable.Name, executing execute: @escaping () -> Void, executableWhen isExecutable: @escaping () -> Bool, expiresWhen isExpired: @escaping () -> Bool) {
+    private func addExecutable(_ name: Executable.Name, 
+                               executing execute: @escaping () -> Void, 
+                               if isExecutable: @escaping () -> Bool,
+                               expiresIf isExpired: @escaping () -> Bool) {
 
         // Guard from an unexpired executable with that name already existing in the context tree
         crashOrRemoveExecutable(name)
@@ -290,11 +293,14 @@ class Context: Hashable {
         executableNamed[name] = Executable(name: name, execute: execute, isExecutable: isExecutable, isExpired: isExpired)
     }
 
-    func addExecutable(_ name: Executable.Name, executing execute: @escaping () -> Void, executableWhen isExecutable: @escaping () -> Bool, expiresWith object: AnyObject) {
+    func addExecutable(_ name: Executable.Name,
+                       executing execute: @escaping () -> Void,
+                       if isExecutable: @escaping () -> Bool, 
+                       expiresWith object: AnyObject) {
 
         // Expire executable when the provided object is deallocated
         let isExpired = { [weak object] in object == nil }
-        addExecutable(name, executing: execute, executableWhen: isExecutable, expiresWhen: isExpired)
+        addExecutable(name, executing: execute, if: isExecutable, expiresIf: isExpired)
     }
     
     func addExecutable(_ name: Executable.Name, executing execute: @escaping () -> Void, withView view: UIView) {
