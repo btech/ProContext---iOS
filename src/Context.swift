@@ -281,10 +281,10 @@ class Context: Hashable {
         return (supercontextTree + [self]).reduce(false){ return $1.flags.contains{ $0.name == name } ? true : $0 }
     }
     
-    private func addExecutable(_ name: Executable.Name, 
-                               executing execute: @escaping () -> Void, 
-                               if isExecutable: @escaping () -> Bool,
-                               expiresIf isExpired: @escaping () -> Bool) {
+    func addExecutable(_ name: Executable.Name, 
+                       executing execute: @escaping () -> Void, 
+                       if isExecutable: @escaping () -> Bool,
+                       expiresIf isExpired: @escaping () -> Bool) {
 
         // Guard from an unexpired executable with that name already existing in the context tree
         crashOrRemoveExecutable(name)
