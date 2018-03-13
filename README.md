@@ -101,7 +101,7 @@ Now I don't know about you, but if there is a possibility of my app crashing I p
 ```swift
 context.addRequestable(.totalWeight, 
                        requesting: { [unowned self] in self.weight },
-                       if: { [unowned self] in self.window != nil }
+                       if: { [unowned self] in self.window != nil },
                        expiresIf: { [weak self] in self == nil)
 }
 ```
