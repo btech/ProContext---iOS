@@ -1,7 +1,7 @@
 # ProContext-iOS
   If you go up to someone right after they've made an accomplishment and say "Great job", they'll automatically know what you're referring to because of the context of the situation. They just accomplished something, and you're complementing them on the thing they just did.
   
-  Context's the reason why you don't have to say "Great job on your most recent accomplishment" because context takes care of everything else after "Great job". Context is also the reason that telling someone "Great job" the moment they walk out of a bathroom stall may lead to an awkward situation. That is, of course, dependent on the amount of effort they exerted in there. If considerable, based on the context, they may know exactly what you're talking about, and perhaps appreciate the recognition for their hard work.
+  Context's the reason why you don't have to say "Great job on your most recent accomplishment" because context takes care of everything else after "Great job". Context is also the reason that telling someone "Great job" the moment they walk out of a bathroom stall may lead to an awkward situation. That is, of course, dependent on the amount of effort they exerted in there. If considerable, based on the context, they may know exactly what you're talking about, and perhaps throw you a solemn head nod.
   
   But as huge a part context plays in our lives it is practically absent from the code we write, and thus its benefits are as well, resulting in redundancies throughout our code that really should be abstracted away based on the context in which the code is being written.
 
